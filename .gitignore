@@ -1,0 +1,94 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.sbr
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.pyc
+.idea
+env_*
+shot/bin
+shot/lib
+config/overrides/formation_overrides.py
+# vim https://github.com/github/gitignore/blob/master/Global/vim.gitignore
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+# ctags file
+tags
+# python virtualenv scripts
+activate.bat
+deactivate.bat
+# vagrant
+.vagrant
+# java
+*.class
+scratchpad
+algo/scripts/imported_data
+tmp_ecdsa/*
+.ipynb_checkpoints
+cover/*
+.coverage
+*.orig
+algo/scripts/example_data.json
+config/overrides/rollout_overrides.py
+onesky.json
+mailbox/
+tmp/
+
+
+### OSX ###
+.DS_Store
+**/.DS_Store
+
+activate64.bat
+deactivate64.bat
+activate32.bat
+deactivate32.bat
+*.scrubber
+*.mat
+*.singlegroupscrubber
+algo/scripts/full_dairy_eyal.py
+scripts/build_future_env.bat
+samples/heroku.txt
+samples/log.txt
+*.backup
+*.jar
+**/.hypothesis/*
+heroku.txt
+git.sha1.txt
+algo/scripts/final_apps/yogurt/v2/temp_yogurt.py
+coverage_report**
+.testmon*
+mprofile_*.dat
+.cache
+bin/
+tests/test_common/subsystem/blobs_dir/
+old_activate.bat
+admin/*

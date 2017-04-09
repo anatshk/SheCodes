@@ -1,0 +1,13 @@
+The code consists of 2 files - game.py and agent.py
+The code that implements the actual game is coded in game.py
+agent.py define several agents that can play the game.
+
+1. Finish the implementation of game.py by implementing the compare function, 
+updating the scores (where a win is 1 point, a tie or a loss is 0 points)
+and finally the summary function that gives some information after the game.
+
+2. Implement the HumanAgent in agent.py. This agent should query the user
+for the next move and ensure that the user gives valid input.
+
+3. implement MyAgent, where you can implement your own strategy, 
+try to beat the InstructorAgent consistently after 100 rounds.
