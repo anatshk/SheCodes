@@ -1,19 +1,22 @@
-"""
-This is an example of Debug Mode.
-"""
-
-my_number = 7
-my_string = "Hello"
-my_dict = {'today': 'Sunday', 'this_year': 2017}
+full_name = 'Bob Marley Jr'
 
 
-def add_to_dict(d, num, string):
-    d['num'] = num
-    d['greeting'] = string * 2
-    return d
-
-my_dict = add_to_dict(my_dict, my_number, my_string)
-
-print("Finished!")
+l1 = [ix for ix, letter in enumerate(full_name) if letter == ' ']
 
 
+l2 = []
+for ix, letter in enumerate(full_name):
+    if letter == ' ':
+        l2.append(ix)
+
+d = {
+    'Taylor Swift': 'Swift',
+    'Bob Marley': 'Marley',
+    'Prince': 'no last name'
+}
+
+for input, expected in d.items():
+    # assert return_last_name(input) == expected, 'WRONG for {}'.format(input)
+    assert return_last_name(input) == expected, 'WRONG for %s' % input
+
+debug_here = 6
