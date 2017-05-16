@@ -54,9 +54,11 @@ def extract_names(filename):
   for rank, male, female in names_ranks:
     male_names[male] = int(rank)
     female_names[female] = int(rank)
+  full_dict = male_names.update(female_names)
 
-  # Build the [year, 'name rank', ... ] list
-  names_sorted = sorted(list(male_names.keys()) + list(female_names.keys()))
+    # Build the [year, 'name rank', ... ] list
+  names_sorted = sorted(full_dict.keys())
+
 
 
   return

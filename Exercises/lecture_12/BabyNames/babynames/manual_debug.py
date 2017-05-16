@@ -21,7 +21,12 @@ for rank, male, female in names_ranks:
     male_names[male] = int(rank)
     female_names[female] = int(rank)
 
-names_sorted = sorted(list(male_names.keys()) + list(female_names.keys()))
+all_names = female_names
+all_names.update(male_names)
+names_sorted = sorted(all_names.keys())
+list_final = year
 for name in names_sorted:
     # TODO: continue building the list
+    list_final.append('{} {}'.format(name, all_names[name]))
+    pass
 a=5
