@@ -1,23 +1,6 @@
-full_name = 'Bob Marley Jr'
+a = 'abc'
+b = 'abc'
 
-
-l1 = [ix for ix, letter in enumerate(full_name) if letter == ' ']
-
-
-l2 = []
-for ix, letter in enumerate(full_name):
-    if letter == ' ':
-        l2.append(ix)
-
-d = {
-    'Taylor Swift': 'Swift',
-    'Bob Marley': 'Marley',
-    'Prince': 'no last name'
-}
-
-for input, expected in d.items():
-    # assert return_last_name(input) == expected, 'WRONG for {}'.format(input)
-    assert return_last_name(input) == expected, 'WRONG for %s' % input
-
-debug_here = 6
-
+for ix in range(min(len(a), len(b))):
+    first_pair = a[ix:ix+2]
+    second_pair = b[ix:ix+2]
