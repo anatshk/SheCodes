@@ -12,7 +12,7 @@ class SudokuCalc:
 
     def __init__(self, filename):
         """
-        Initialized Sudoko board from file.
+        Initialized Sudoku board from file.
         The file contains 9 rows of 9 characters, characters are 0-9, where 0 indicates the cell is empty.
         :param filename: path to txt file
         """
@@ -21,6 +21,11 @@ class SudokuCalc:
 
     @staticmethod
     def create_board(filename):
+        """
+        Board is represented by a list of lists, each inner list is a row in the filname.
+        :param filename:
+        :return:
+        """
         f = open(filename, 'r')
         txt = f.read()
         f.close()
@@ -53,8 +58,23 @@ class SudokuCalc:
     def check_win(self):
         """
         Checks rows, columns, squares for winning conditions - contain all values 1-9, without repeating.
+        If all are correct - set gameover flat to True, return True, otherwise return False
         :return:
         """
+        # go over rows
+        rows_ok = []
+        for row in self.board:
+            rows_ok.append(SudokuCalc._check_row(row))
+
+        # go over columns
+        cols_ok = []
+        cols = [[row[ix] for row in self.board] for ix in range(self.board_size)]
+        for col in cols:
+            cols_ok.append(SudokuCalc._check_col(col))
+
+        # go over squares
+        squares = []
+
 
 
     @staticmethod

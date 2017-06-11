@@ -51,4 +51,11 @@ assert not SudokuCalc._check_col([[1], [2], [3], [4], [0], [6], [7], [8], [9]])
 assert SudokuCalc._check_square([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 assert not SudokuCalc._check_square([[1, 2, 3], [4, 0, 6], [7, 8, 9]])
 
+sudoku = SudokuCalc('sudoku_example_3.txt')
+sudoku.start()
+assert not sudoku.check_win()
+
+
+
 # TODO: take known solutions from: http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html
+# TODO: Jan 17 and 18 2006 were used as example 2 and 3
