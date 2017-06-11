@@ -17,7 +17,7 @@ class SudokuCalc:
         :param filename: path to txt file
         """
 
-        self.board = SudokuCalc.create_board(filename)
+        self.start_puzzle = SudokuCalc.create_board(filename)
 
     @staticmethod
     def create_board(filename):
@@ -48,13 +48,14 @@ class SudokuCalc:
     # TODO: continue from here, part B in link above
     def start(self):
         self.is_game_over = False
-        self.start_puzzle = self.board.copy()
+        self.board = self.start_puzzle.copy()
 
     def check_win(self):
         """
         Checks rows, columns, squares for winning conditions - contain all values 1-9, without repeating.
         :return:
         """
+
 
     @staticmethod
     def _check_row(row):
@@ -63,7 +64,7 @@ class SudokuCalc:
         :param row:
         :return:
         """
-        pass
+        return SudokuCalc._check_values(row[:])
 
     @staticmethod
     def _check_col(col):
@@ -72,7 +73,7 @@ class SudokuCalc:
         :param col:
         :return:
         """
-        pass
+        return SudokuCalc._check_values([c[0] for c in col])
 
     @staticmethod
     def _check_square(square):
@@ -81,16 +82,17 @@ class SudokuCalc:
         :param square:
         :return:
         """
-        pass
+        return SudokuCalc._check_values([val for row in square for val in row])
 
     @staticmethod
     def _check_values(value_list):
         """
         Checks if value_list contains all values 1-9, without repeating.
-        :param value_list:
-        :return:
+        :param value_list: list of values
+        :return: True \ False
         """
-
+        assert len(value_list) == SudokuCalc.board_size
+        return sorted(value_list) == list(range(1, 10))
 
 
 class SudokuDisplay:

@@ -36,6 +36,19 @@ except Exception as e:
     assert e.args[0] == 'Unsupported character \'a\'. Only digits 0-9 are supported'
 
 
+# ====================================== Test Check Win ======================================
 
+assert SudokuCalc._check_values([1, 2, 3, 4, 5, 6, 7, 8, 9])
+assert not SudokuCalc._check_values([2, 2, 3, 4, 5, 6, 7, 8, 9])
+assert not SudokuCalc._check_values([2, 2, 3, 4, 5, 6, 0, 8, 9])
 
+assert SudokuCalc._check_row([1, 2, 3, 4, 5, 6, 7, 8, 9])
+assert not SudokuCalc._check_row([1, 2, 3, 4, 0, 6, 7, 8, 9])
 
+assert SudokuCalc._check_col([[1], [2], [3], [4], [5], [6], [7], [8], [9]])
+assert not SudokuCalc._check_col([[1], [2], [3], [4], [0], [6], [7], [8], [9]])
+
+assert SudokuCalc._check_square([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+assert not SudokuCalc._check_square([[1, 2, 3], [4, 0, 6], [7, 8, 9]])
+
+# TODO: take known solutions from: http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html
