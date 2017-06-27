@@ -163,6 +163,8 @@ class SudokuDisplay(Frame):
         self.game.start()
         super(SudokuDisplay, self).__init__(master=parent)
         self.parent = parent
+        self.row = 0  # initialize row index of clicked cell
+        self.col = 0  # initialize col index of clicked cell
         self._initUI()
 
     def _initUI(self):
@@ -175,8 +177,19 @@ class SudokuDisplay(Frame):
         self.button_clear_screen = Button(self.parent, text='Clear', command=self._clear_answers)
         self.button_clear_screen.pack()
 
+        # Create a 'quit' button, to allow debugging, pack
+        self.button_quit = Button(self.parent, text='Quit', command=self._quit)
+        self.button_quit.pack()
+
+        # draw gris and fill in puzzle
         self._draw_grid()
         self._draw_puzzle()
+
+        # bind mouse-click on canvas to self._cell_clicked
+        self.canvas.bind('<Button-1>', self._cell_clicked)
+
+    def _quit(self):
+        self.parent.quit()
 
     def _clear_answers(self):
         """
@@ -225,3 +238,60 @@ class SudokuDisplay(Frame):
 
     # TODO: continue from part I
 
+    def _cell_clicked(self, event):
+        """
+        Locates X, Y coordinates closest to user click on canvas.
+
+        :param event:
+        :return:
+        """
+
+        # TODO: debug sudoku_test to see if this works as expected
+
+        # check if game over
+        if self.game.is_game_over:
+            return
+
+        # grab x, y coordinates of click
+        x = event.x
+        y = event.y
+
+        # make sure it's within the widget - WIDTH, HEIGHT, MARGIN
+        if x < MARGIN or y < MARGIN or x > WIDTH - MARGIN or y > HEIGHT - MARGIN:
+            self.row = -1
+            self.col = -1
+            return
+
+        # TODO: set canvas focus on click and highlight
+        self.canvas.focus_set()
+
+        # map x, y to X, Y - the cell closest to click and set self.row, self.col to coordinates. set to -1 if no cell.
+        cell_borders = list(range(MARGIN, WIDTH, SIDE))
+
+        row = x // 10
+        col = y // 10
+
+        if self.row == row and self.col == col:
+            # if cell was selected (click on same cell) - deselect it
+            self.canvas.delete("cursor")
+        else:
+            # grab the cell and put it into self.row, self.col
+            self.row = row
+            self.col = col
+
+        self._draw_cursor()
+
+    def _draw_cursor(self):
+        """
+        Highlight the cell the user clicked on.
+        """
+        self.canvas.delete("cursor")
+        x0 = MARGIN + self.row * SIDE
+        y0 = MARGIN + self.col * SIDE
+        x1 = x0 + SIDE
+        y1 = y0 + SIDE
+
+        self.canvas.create_rectangle(x0, y0, x1, y1, outline='red', tags='cursor')
+
+
+# TODO: continue from part K
