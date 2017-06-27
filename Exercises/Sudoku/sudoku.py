@@ -160,6 +160,7 @@ class SudokuDisplay(Frame):
 
     def __init__(self, parent, filename):
         self.game = SudokuCalc(filename)
+        self.game.start()
         super(SudokuDisplay, self).__init__(master=parent)
         self.parent = parent
         self._initUI()
@@ -175,11 +176,14 @@ class SudokuDisplay(Frame):
         self.button_clear_screen.pack()
 
         self._draw_grid()
-        self._draw_puzzle()  # TODO: implement this below
+        self._draw_puzzle()
 
     def _clear_answers(self):
-        # TODO: implement this - see part H
-        pass
+        """
+        Restarts the game and redraws the board.
+        """
+        self.game.start()
+        self._draw_puzzle()
 
     def _draw_grid(self):
         """
@@ -200,7 +204,23 @@ class SudokuDisplay(Frame):
         """
         Fills in the cells based on self.game
         """
-        # TODO: implement this - see part G
+        given_color = 'black'
+        user_color = 'sea green'
+
+        self.canvas.delete("numbers")  # delete all text with tag 'numbers'
+
+        # iterate over rows and columns, create cells, fill in cells with values from self.game
+        for row in range(self.game.board_size):
+            for col in range(self.game.board_size):
+                x = MARGIN + SIDE * (0.5 + row)
+                y = MARGIN + SIDE * (0.5 + col)
+                number = self.game.board[row][col]  # get number from current board
+                color_flag = self.game.start_puzzle[row][col]  # get color flag from original board (0 is user color)
+                answer = str(number) if number else ''
+                color = given_color if color_flag else user_color
+                self.canvas.create_text(x, y, text=answer, tags="numbers", fill=color)
+
+
 
 
     # TODO: continue from part I
