@@ -2,6 +2,8 @@
 https://docs.google.com/document/d/1lnUaaDEBXZLUB6KYQFzK7CVXsVHxx4579iXWqibz8YM/edit
 """
 
+from math import sqrt
+
 
 class SudokuCalc:
     """
@@ -68,13 +70,44 @@ class SudokuCalc:
 
         # go over columns
         cols_ok = []
-        cols = [[row[ix] for row in self.board] for ix in range(self.board_size)]
+        cols = self._extract_cols()
         for col in cols:
-            cols_ok.append(SudokuCalc._check_col(col))
+            cols_ok.append(SudokuCalc._check_row(col))
 
         # go over squares
-        squares = []
+        squares_ok = []
+        squares = self._extract_squares()
+        for square in squares:
+            squares_ok.append(SudokuCalc._check_row(square))
 
+        return all(rows_ok) and all(cols_ok) and all(squares_ok)
+
+    def _extract_cols(self):
+        """
+        Extracts columns from self.board to list of lists, where each inner list is a column of the board.
+        :return:
+        """
+        return [[row[ix] for row in self.board] for ix in range(self.board_size)]
+
+    def _extract_squares(self):
+        """
+        Extracts squares from self.board to list of lists, where each inner list is a square in the board.
+        :return:
+        """
+        num_row_in_square = int(sqrt(self.board_size))
+
+        # separate board into lists of n values - rows of squares.
+        # The order of squares from board is top-to-bottom, left-to-right, starting with top-left square
+        col_squares = [[row[ix:ix + num_row_in_square] for row in self.board] for ix in
+                       range(0, self.board_size, num_row_in_square)]
+
+        # collect squares and flatten them
+        flat_squares = []
+        for col in col_squares:
+            for ix in range(0, self.board_size, num_row_in_square):
+                square = col[ix:ix + num_row_in_square]
+                flat_squares.append([item for sublist in square for item in sublist])
+        return flat_squares
 
 
     @staticmethod
@@ -93,7 +126,7 @@ class SudokuCalc:
         :param col:
         :return:
         """
-        return SudokuCalc._check_values([c[0] for c in col])
+        pass  # this is not needed. we can extract columns into lists (rows)
 
     @staticmethod
     def _check_square(square):

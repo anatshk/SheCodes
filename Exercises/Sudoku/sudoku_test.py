@@ -45,8 +45,9 @@ assert not SudokuCalc._check_values([2, 2, 3, 4, 5, 6, 0, 8, 9])
 assert SudokuCalc._check_row([1, 2, 3, 4, 5, 6, 7, 8, 9])
 assert not SudokuCalc._check_row([1, 2, 3, 4, 0, 6, 7, 8, 9])
 
-assert SudokuCalc._check_col([[1], [2], [3], [4], [5], [6], [7], [8], [9]])
-assert not SudokuCalc._check_col([[1], [2], [3], [4], [0], [6], [7], [8], [9]])
+# assert SudokuCalc._check_col([[1], [2], [3], [4], [5], [6], [7], [8], [9]])
+# assert not SudokuCalc._check_col([[1], [2], [3], [4], [0], [6], [7], [8], [9]])
+# check_col was deprecated
 
 assert SudokuCalc._check_square([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 assert not SudokuCalc._check_square([[1, 2, 3], [4, 0, 6], [7, 8, 9]])
@@ -54,6 +55,10 @@ assert not SudokuCalc._check_square([[1, 2, 3], [4, 0, 6], [7, 8, 9]])
 sudoku = SudokuCalc('sudoku_example_3.txt')
 sudoku.start()
 assert not sudoku.check_win()
+
+sudoku = SudokuCalc('sudoku_solution_3.txt')
+sudoku.start()
+assert sudoku.check_win()
 
 
 
