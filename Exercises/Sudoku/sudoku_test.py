@@ -1,4 +1,5 @@
-from Exercises.Sudoku.sudoku import SudokuCalc
+from Exercises.Sudoku.sudoku import SudokuCalc, SudokuDisplay
+from tkinter import *
 
 # ====================================== Test Create Board ======================================
 
@@ -60,7 +61,13 @@ sudoku = SudokuCalc('sudoku_solution_3.txt')
 sudoku.start()
 assert sudoku.check_win()
 
-
-
 # TODO: take known solutions from: http://elmo.sbs.arizona.edu/sandiway/sudoku/examples.html
 # TODO: Jan 17 and 18 2006 were used as example 2 and 3
+
+# ====================================== Test UI ======================================
+
+root = Tk()
+
+SudokuDisplay(root, 'sudoku_example_3.txt')
+
+root.mainloop()

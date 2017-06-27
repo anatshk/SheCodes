@@ -3,6 +3,12 @@ https://docs.google.com/document/d/1lnUaaDEBXZLUB6KYQFzK7CVXsVHxx4579iXWqibz8YM/
 """
 
 from math import sqrt
+from tkinter import *
+
+# Constants
+MARGIN = 20  # pix around the board
+SIDE = 50  # width of board cell
+WIDTH = HEIGHT = MARGIN * 2 + SIDE * 9  # board width and height
 
 
 class SudokuCalc:
@@ -52,7 +58,6 @@ class SudokuCalc:
             board.append(row)
         return board
 
-    # TODO: continue from here, part B in link above
     def start(self):
         self.is_game_over = False
         self.board = self.start_puzzle.copy()
@@ -148,7 +153,49 @@ class SudokuCalc:
         return sorted(value_list) == list(range(1, 10))
 
 
-class SudokuDisplay:
+class SudokuDisplay(Frame):
     """
     Will contain all display methods.
     """
+
+    def __init__(self, parent, filename):
+        self.game = SudokuCalc(filename)
+        super(SudokuDisplay, self).__init__(master=parent)
+        self.parent = parent
+        self._initUI()
+
+    def _initUI(self):
+        self.parent.title('Sudoku')  # set parent title to 'Sudoku'
+        self.pack()  # pack self (current board) to parent
+        self.canvas = Canvas(self.parent, height=HEIGHT, width=WIDTH, bg='white')  # add 'canvas' widget using WIDTH and HEIGHT
+        self.canvas.pack()  # pack the canvas
+
+        # Create a 'clear' button, bind to self._clear_answers, pack
+        self.button_clear_screen = Button(self.parent, text='Clear', command=self._clear_answers)
+        self.button_clear_screen.pack()
+
+        self._draw_grid()  # TODO: implement this below
+        self._draw_puzzle()  # TODO: implement this below
+
+    def _clear_answers(self):
+        # TODO: implement this - see part H
+        pass
+
+    def _draw_grid(self):
+        """
+        Draws grid divided by blue lines into 3x3 squares. Blue lines on square borders, gray lines within squares.
+        """
+        # TODO: implement this, use canvas.create_line(x0, y0, x1, y1, fill=color)
+        # TODO: use WIDTH, HEIGHT, SIDE, MARGIN
+
+        pass
+
+    def _draw_puzzle(self):
+        """
+        Fills in the cells based on self.game
+        """
+        # TODO: implement this - see part G
+
+
+    # TODO: continue from part I
+
