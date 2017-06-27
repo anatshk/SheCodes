@@ -174,7 +174,7 @@ class SudokuDisplay(Frame):
         self.button_clear_screen = Button(self.parent, text='Clear', command=self._clear_answers)
         self.button_clear_screen.pack()
 
-        self._draw_grid()  # TODO: implement this below
+        self._draw_grid()
         self._draw_puzzle()  # TODO: implement this below
 
     def _clear_answers(self):
@@ -185,10 +185,16 @@ class SudokuDisplay(Frame):
         """
         Draws grid divided by blue lines into 3x3 squares. Blue lines on square borders, gray lines within squares.
         """
-        # TODO: implement this, use canvas.create_line(x0, y0, x1, y1, fill=color)
-        # TODO: use WIDTH, HEIGHT, SIDE, MARGIN
+        # calculate line locations and colors
+        loc_list = list(range(MARGIN, WIDTH, SIDE))  # where vertical\horizontal lines should be
+        colors = ['gray' if ix % sqrt(self.game.board_size) else 'blue' for ix, loc in enumerate(loc_list)]
 
-        pass
+        # add lines to canvas
+        for loc, color in zip(loc_list, colors):
+            # add vertical line
+            self.canvas.create_line(loc, loc_list[0], loc, loc_list[-1], fill=color)
+            # add horizontal line
+            self.canvas.create_line(loc_list[0], loc, loc_list[-1], loc, fill=color)
 
     def _draw_puzzle(self):
         """
