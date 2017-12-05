@@ -23,27 +23,25 @@ s_animals_time_index = pd.Series(data=animals, index=time_axis)
 # Series methods
 # (https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.html)
 
+# numeric
 min_num = s_numbers.min()
 cum_sum = s_numbers.cumsum()
 
+# sorting
 sort_vals_1 = s_animals.sort_values()
 sort_vals_2 = s_animals.sort_values(ascending=False)
-sort_index = s_animals_set_index.sort_values()
+sort_index = s_animals_set_index.sort_index()
 
+# categorical
+with_dup = pd.Series(['one', 'two', 'three', 'three', 'two', 'one', 'zero'])
+no_dup = with_dup.drop_duplicates()  # NOTE: Index does not change per item!
 
-# Define a dictionary with data for example
-dct = {
-    'Name': ['A', 'B', 'C', 'D', 'E'],
-    'Gender': ['Male', 'Female', 'Male', 'Male', 'Female'],
-    'DOB': [pd.Timestamp(val).date() for val in ['1-Jan-80', '10-Mar-83', '31-Mar-85', '11-Jun-80', '10-Jan-80']],
-    'Pet': ['Dog', 'Cat', 'Dog', 'Dog', None],
-    'Drivers_License': [True, False, False, False, True],
-    'Height_cm': [174, 157, 189, 168, 192]
-}
+# accessing by index
+no_dup.loc[2]  # 'three'
+no_dup.loc[3]  # crash - no such index
+no_dup.loc[6]  # 'zero'
 
-
-
-
-df = pd.DataFrame.from_dict(dct)
-
-a = 5
+# accessing by location
+no_dup.iloc[2]  # 'three'
+no_dup.iloc[3]  # 'zero'
+no_dup.iloc[6]  # crash - series only has 4 items
