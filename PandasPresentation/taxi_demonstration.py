@@ -27,3 +27,5 @@ https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python
 
 # TODO: instead of final slide, create a df with x and y of points when plotted will show 'Questions?'
 # TODO: (write in paint, read as matrix and pixellate?)
+
+# TODO: add a basic linear regression model? on this data or  http://pbpython.com/amortization-model-revised.html
