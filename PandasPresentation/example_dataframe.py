@@ -55,7 +55,7 @@ df_missing = pd.DataFrame(data={'col1': pd.Series(col1, index=index1),
 
 
 #####################################################################################
-# Accessing information
+# Accessing and Creating information
 #####################################################################################
 big_dct = {
     'col1': range(0, 100),
@@ -94,9 +94,43 @@ def my_func(row):
 
 df_big['another_column'] = df_big.apply(my_func, axis=1)
 
-# removing rows with missing data
+# removing ROWS with missing data
+df_missing_vals = pd.DataFrame(
+    data=[[1, 'a', 11], [2, None, 22], [None, None, None]],
+    columns=['a', 'b', 'c']
+)
 
-# TODO: delete values and fill missing values
+# only rows without any data
+df_missing_vals.dropna(how='all')
+# rows with any missing data
+df_missing_vals.dropna(how='any')
+# rows by index
+df_missing_vals.drop([0, 2])
+# remove COLUMN by name
+df_missing_vals.drop(columns=['b'])
 
+# filling in missing data
+df_missing_vals.fillna(value='FILLER')  # fill all missing values with the same value
+df_missing_vals.fillna(method='ffill')  # fill values according to first available value in column
 
-a = 5
+# removing duplicates (index remains the same!)
+df_dup = pd.DataFrame(
+    data=[[1, 'a', 11], [2, 'b', 22], [3, 'c', 33], [3, 'c', 33], [1, 'c', 33], [2, 'b', 0], [1, 'a', 11]],
+    columns=['a', 'b', 'c']
+)
+
+# keep first \ last occurrence
+df_dup.drop_duplicates()
+df_dup.drop_duplicates(keep='last')
+
+# drop duplicates if specific column contains duplicates
+# (other columns can be different)
+# Note index 5
+df_dup.drop_duplicates(subset='c')
+
+#####################################################################################
+# Note: DataFrames are immutable. A copy is created in memory after any action.
+#       After all actions in console, the original DataFrame did not change.
+#       'inplace' input in any method performs the change inplace.
+#       No assignment needed if using 'inplace'.
+#####################################################################################
