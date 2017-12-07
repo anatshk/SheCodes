@@ -1,5 +1,9 @@
 import pandas as pd
 
+"""
+NOTE: Examples are in Python 3
+"""
+
 taxi_path = r'C:\Users\Anat\Downloads\pandas_data\taxi.csv.bz2'
 
 df = pd.read_csv(taxi_path)  # create DataFrame from CSV
