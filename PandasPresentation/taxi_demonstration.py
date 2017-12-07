@@ -24,3 +24,6 @@ https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python
 # TODO: think of ways to use function in previous example
 # TODO: write a demonstration with plots, pivot table, sample,
 # TODO: show how to write to Excel
+
+# TODO: instead of final slide, create a df with x and y of points when plotted will show 'Questions?'
+# TODO: (write in paint, read as matrix and pixellate?)
