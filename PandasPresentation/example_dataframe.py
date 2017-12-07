@@ -79,7 +79,7 @@ row0_iloc = df_big.iloc[0]  # reminder - iloc accesses by order in DataFrame
 # df_big[0] - will NOT work!
 
 # creating a new column
-df_big['new_column'] = df_big['col1'] * 2
+df_big.assign(new_column=df_big['col1'] * 2)
 
 
 # creating a new column with a function
@@ -92,7 +92,7 @@ def my_func(row):
     return row['col3']
 
 
-df_big['another_column'] = df_big.apply(my_func, axis=1)
+df_big.assign(another_column=df_big.apply(my_func, axis=1))
 
 # removing ROWS with missing data
 df_missing_vals = pd.DataFrame(
