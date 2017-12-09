@@ -1,6 +1,7 @@
 import pandas as pd
 import folium  # http://folium.readthedocs.io/en/latest/quickstart.html
 import matplotlib.pyplot as plt
+import numpy as np
 
 from os.path import getsize
 
@@ -164,10 +165,54 @@ hist_plot.set_title('Histogram of Ride Distances')
 plt.figure()  # indication to open a new figure
 pie = vendor_count.plot(kind='pie')
 
-# Calculate number of rides per hour, per weekday (Sun-Sat, 24hrs)
-# 1. create new columns, weekday and hour by accessing the dt
+# Calculate median number of rides per hour, perform the median on weekdays (Sun-Sat)
+# 1. create new columns, weekday and hour
 df['weekday'] = df['pickup_time'].dt.weekday
 df['hour'] = df['pickup_time'].dt.hour
+# each Timestamp Series (parse_dates read these columns as Timestamps),
+# has 'dt' property that allows to access its datetime properties
+
+# 2. count how many rides per weekday, per hour
+ride_count = df.groupby(['weekday', 'hour'], as_index=False).count()
+# as_index=False - avoids replacing the index with the groupby columns
+# see weekday and hour columns + trip_type column for ride counts
+ride_count[['weekday', 'hour', 'trip_type']].head()
+
+# 3. now, take the result of the first groupby
+#    and perform groupby on the hour to calculate the median on the weekdays
+#    (groupby - creates groups of 7 counts per day for each hour)
+ride_count_hourly = ride_count.groupby('hour').median()['trip_type']
+
+ax = ride_count_hourly.plot.bar(rot=45)
+ax.set_xlabel('Hour')
+ax.set_title('Median Hourly Rides')
+ax.set_ylabel('# rides')
+
+# Pivot Table - summarizes data in another table using aggregation function and grouping
+# Example - create 2 boxplots, one per vendor, present daily earnings
+# 1. Select data for pivot -
+df_for_pivot = df[['vendor_id', 'total_amount', 'weekday']]
+# 2. select index, columns, values and aggregation function
+pivot_df = df_for_pivot.pivot_table(index='weekday',
+                                    columns='vendor_id',
+                                    values='total_amount',
+                                    aggfunc=np.sum)
+# pivot_df is a DataFrame where weekdays are index and vendors are columns
+# the value in each column is sum of earnings per weekday
+plt.figure()  # indication to open a new figure
+piv_fig_bar = pivot_df.plot.bar()
+piv_fig_bar.set_xlabel('Weekday')
+piv_fig_bar.set_title('Weekday Earnings per Vendor')
+piv_fig_bar.set_ylabel('Earnings in USD')
+
+
+# 3. plot the pivot table
+plt.figure()  # indication to open a new figure
+piv_fig = pivot_df.plot.box()
+piv_fig.set_xlabel('Vendor')
+piv_fig.set_title('Weekday Earnings per Vendor')
+piv_fig.set_ylabel('Earnings in USD')
+
 
 a = 5
 
