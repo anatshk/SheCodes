@@ -1,5 +1,6 @@
 import pandas as pd
 import folium  # http://folium.readthedocs.io/en/latest/quickstart.html
+import matplotlib.pyplot as plt
 
 from os.path import getsize
 
@@ -123,15 +124,51 @@ m.save(r'C:\\Users\\Anat\\Documents\\GitRepos\\SheCodes\\PandasPresentation\\map
 # GroupBy object - groups the DataFrame by a column and allows to perform actions
 count_vendors = df.groupby('vendor_id').count()
 # in each column, we'll see the number each vendor_ids appears
+# note that 'vendor_id' is now the index!
 
 # select (any) one column to avoid duplicated columns
-count_vendors = df.groupby('vendor_id').count()['trip_type']
+count_vendors_series = df.groupby('vendor_id').count()['trip_type']
+
+# we can also group by several columns to create multi-index.
+# this complicates the data and not recommended.
+multi_groupby = df.groupby(['vendor_id', 'passenger_count', 'payment_type']).count()['trip_type']
 
 # there is a similar Series method that avoids the redundant counts
-df['vendor_id'].value_counts()
+vendor_count = df['vendor_id'].value_counts()
 
 # divide the data into bins using pd.cut (Series method)
-binned_distance = pd.cut(df['trip_distance'], 10)
+binned_distance = pd.cut(df['trip_distance'], bins=10)
+# returns for each row the bin it belongs to.
+# Note the list of bins printed at the end of Series.
+# Notice that leftmost bin is (-0.379, 37.891] even though no trip_distance < 0.
+
+# create a histogram - group by the bins, count each bin
+hist = binned_distance.value_counts()
+# we see that most of the rides were < 37 miles and out bin selection was not ideal
+
+# select different bins (can be non-uniform)
+bins = list(range(15)) + [15, 20, 25, 30, 35, 40]
+hist_2 = pd.cut(df['trip_distance'], bins=bins).value_counts()
+hist_2.sort_index(inplace=True)  # sort by index
+
+# lets plot the histogram (Series method)
+plt.figure()  # indication to open a new figure
+hist_plot = hist_2.plot(kind='bar')
+for tick in hist_plot.get_xticklabels():
+    tick.set_rotation(45)
+hist_plot.set_xlabel('Ride Distance in miles')
+hist_plot.set_ylabel('Number of Rides')
+hist_plot.set_title('Histogram of Ride Distances')
+
+# Different plots - pie, line, etc.
+plt.figure()  # indication to open a new figure
+pie = vendor_count.plot(kind='pie')
+
+# Calculate number of rides per hour, per weekday (Sun-Sat, 24hrs)
+# 1. create new columns, weekday and hour by accessing the dt
+df['weekday'] = df['pickup_time'].dt.weekday
+df['hour'] = df['pickup_time'].dt.hour
+
 a = 5
 
 # TODO: see taxi jupyter notebook for ideas.
