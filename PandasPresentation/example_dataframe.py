@@ -128,9 +128,56 @@ df_dup.drop_duplicates(keep='last')
 # Note index 5
 df_dup.drop_duplicates(subset='c')
 
+# a few more interesting methods
+df_big.describe()  # statistical summary
+df_dup.T  # transpose columns and rows
+df_big.loc[[1, 57, 92], ['col2', 'col1']] # select (and order) rows \ columns
+df_big.at[53, 'col3']  # access specific value
+df_big[df_big.col1 > 80]  # slicing with conditions
+pd.isna(df_missing_vals)  # returns DataFrame \ Series Boolean mask of missing values
+
+# adding values (rows)
+df3 = pd.DataFrame({'a': ['a1', 'a2', 'a3'], 'b': ['b1', 'b2', 'b3']}, index=['i1', 'i2', 'i3'])
+df4 = df3.loc['i1']
+df3.append(df4)  # index duplicate
+df3.append(df4, ignore_index=True)  # new index created
+
+# joining DataFrames on index (adding columns)
+df1 = pd.DataFrame({'a': ['a1', 'a2', 'a3'], 'b': ['b1', 'b2', 'b3']}, index=['i1', 'i2', 'i3'])
+df2 = pd.DataFrame({'c': ['c1', 'c2', 'c3', 'c4'], 'd': ['d1', 'd2', 'd3', 'd4']}, index=['i3', 'i2', 'i1', 'i0'])
+df2.join(df1)  # i0 has missing values from df1
+df1.join(df2)  # i0 is not in df1, and thus not joined
+# many different options for join or merge:
+# https://pandas.pydata.org/pandas-docs/stable/merging.html
+
+# categorical values (have order, but no math operators)
+s1 = pd.Series(["one", "two", "three", "one"], dtype="category")
+# OR
+cat_data = pd.Categorical(["one", "two", "three", "one"], categories=['one', 'two', 'three'], ordered=True)
+s2 = pd.Series(cat_data)
+
 #####################################################################################
 # Note: DataFrames are immutable. A copy is created in memory after any action.
 #       After all actions in console, the original DataFrame did not change.
 #       'inplace' input in any method performs the change inplace.
 #       No assignment needed if using 'inplace'.
 #####################################################################################
+
+"""
+Inputs \ Outputs - 
+read_csv \ to_csv
+read_excel \ to_excel
+read_hdf \ to_hdf
+"""
+
+# extra reading -
+# https://pandas.pydata.org/pandas-docs/stable/dsintro.html#dsintro
+# https://pandas.pydata.org/pandas-docs/stable/tutorials.html
+# https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python
+
+# basic modeling example (linear regression) -
+# 1. create a sequential DataFrame - each row is a point in time (for example, debt repayment, or savings account)
+# 2. add rows for the future
+# 3. find the date when you reach the desired condition - 0 debt \ X savings
+# http://pbpython.com/amortization-model.html
+# http://pbpython.com/amortization-model-revised.html

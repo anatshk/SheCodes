@@ -205,30 +205,9 @@ piv_fig_bar.set_xlabel('Weekday')
 piv_fig_bar.set_title('Weekday Earnings per Vendor')
 piv_fig_bar.set_ylabel('Earnings in USD')
 
-
 # 3. plot the pivot table
 plt.figure()  # indication to open a new figure
 piv_fig = pivot_df.plot.box()
 piv_fig.set_xlabel('Vendor')
 piv_fig.set_title('Weekday Earnings per Vendor')
 piv_fig.set_ylabel('Earnings in USD')
-
-
-a = 5
-
-# TODO: see taxi jupyter notebook for ideas.
-# TODO: go over tutorials for things to demonstrate:
-"""
-https://pandas.pydata.org/pandas-docs/stable/dsintro.html#dsintro
-https://pandas.pydata.org/pandas-docs/stable/tutorials.html
-https://pandas.pydata.org/pandas-docs/stable/10min.html
-https://www.datacamp.com/community/tutorials/pandas-tutorial-dataframe-python
-"""
-# TODO: think of ways to use function in previous example
-# TODO: write a demonstration with plots, pivot table, sample,
-# TODO: show how to write to Excel
-
-# TODO: instead of final slide, create a df with x and y of points when plotted will show 'Questions?'
-# TODO: (write in paint, read as matrix and pixellate?)
-
-# TODO: add a basic linear regression model? on this data or  http://pbpython.com/amortization-model-revised.html
