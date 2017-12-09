@@ -1,4 +1,5 @@
 import pandas as pd
+import folium  # http://folium.readthedocs.io/en/latest/quickstart.html
 
 from os.path import getsize
 
@@ -81,6 +82,47 @@ df.rename(columns=col_renaming, inplace=True)
 # one more step - make all column names lowercase
 df.rename(str.lower, axis='columns', inplace=True)
 new_col_names = df.columns
+
+# look at the column types
+df.dtypes
+# ints and floats - floats are actual values, ints probably map to strings (except passenger #)
+# (trip_type - one-way\return, payment_type - cash\credit\app)
+
+#######################################################################
+# Data Visualization - on a map (folium package - best used in Jupyter)
+#######################################################################
+
+# find median center of pickup locations
+map_center = [df['pickup_lat'].median(), df['pickup_lon'].median()]
+
+# display map with center \ pickup\dropoff locations
+
+# commented out because it takes a while 
+"""
+m = folium.Map(location=map_center, zoom_start=15)
+marker = folium.Marker(map_center)
+marker.add_to(m)
+m.save('C:\\Users\\Anat\\Documents\\GitRepos\\SheCodes\\PandasPresentation\\map.html')
+
+# write a function for placing markers per row
+def add_marker(row):
+    pickup = folium.Marker([row['pickup_lat'], row['pickup_lon']],
+                           icon=folium.Icon(color='green'))
+    pickup.add_to(m)
+    dropoff = folium.Marker([row['dropoff_lat'], row['dropoff_lon']],
+                            icon=folium.Icon(color='red'))
+    dropoff.add_to(m)
+
+# take a smaller DataFrame to see all pickup \ dropoff locations
+df_small = df.iloc[1::1000]
+m = folium.Map(location=map_center, zoom_start=15)
+df_small.apply(add_marker, axis=1)
+m.save(r'C:\\Users\\Anat\\Documents\\GitRepos\\SheCodes\\PandasPresentation\\map_with_locs.html')
+"""
+
+# GroupBy
+df.groupby('vendor_id')
+
 
 a = 5
 
