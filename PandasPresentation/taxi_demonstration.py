@@ -120,10 +120,18 @@ df_small.apply(add_marker, axis=1)
 m.save(r'C:\\Users\\Anat\\Documents\\GitRepos\\SheCodes\\PandasPresentation\\map_with_locs.html')
 """
 
-# GroupBy
-df.groupby('vendor_id')
+# GroupBy object - groups the DataFrame by a column and allows to perform actions
+count_vendors = df.groupby('vendor_id').count()
+# in each column, we'll see the number each vendor_ids appears
 
+# select (any) one column to avoid duplicated columns
+count_vendors = df.groupby('vendor_id').count()['trip_type']
 
+# there is a similar Series method that avoids the redundant counts
+df['vendor_id'].value_counts()
+
+# divide the data into bins using pd.cut (Series method)
+binned_distance = pd.cut(df['trip_distance'], 10)
 a = 5
 
 # TODO: see taxi jupyter notebook for ideas.
