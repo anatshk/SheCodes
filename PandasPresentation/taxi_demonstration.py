@@ -14,7 +14,8 @@ http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
 """
 
 # path to data - csv.bz2: a csv file that was compressed on a linux system
-taxi_path = r'C:\Users\Anat\Downloads\pandas_data\taxi.csv.bz2'
+# taxi_path = r'C:\Users\Anat\Downloads\pandas_data\taxi.csv.bz2'
+taxi_path = r'C:\Users\anat.shkolyar\PycharmProjects\pandas_workshop\data\taxi.csv.bz2'
 
 # see size of file before loading.
 # getsize returns size in bits, << performs bitwise shift left to get mb
