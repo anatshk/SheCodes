@@ -1,5 +1,5 @@
 from unittest import TestCase
-from TestDebugPresentation.testing_debugging_presentation import return_last_name
+from TestDebugPresentation.debugging_presentation import return_last_name
 
 
 class TestReturnLastName(TestCase):
@@ -14,7 +14,7 @@ class TestReturnLastName(TestCase):
         self.assertEqual(actual, expected)
 
     def test_empty_string(self):
-        with self.assertRaisesRegex(AssertionError, 'Empty String'):
+        with self.assertRaisesRegexp(AssertionError, 'Empty String'):
             return_last_name('')
 
     def test_numbers_in_name(self):
