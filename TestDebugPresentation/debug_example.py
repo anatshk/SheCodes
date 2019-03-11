@@ -3,7 +3,7 @@ This is an example of Debug Mode.
 """
 my_number = 7
 my_string = "Hello"
-my_dict = {'today': 'Sunday', 'this_year': 2017}
+my_dict = {'today': 'Friday', 'this_year': 2019}
 
 
 def add_to_dict(d, num, string):
@@ -13,5 +13,3 @@ def add_to_dict(d, num, string):
 
 my_dict = add_to_dict(my_dict, my_number, my_string)
 print("Finished!")
-
-
